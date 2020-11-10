@@ -6,3 +6,6 @@ It can print the contents of a file (package.json), print system info, and start
 
 # Requirements to run
 * [NodeJS](https://nodejs.org/)
+
+# Hot to run
+Navigate to the root folder in a terminal. Type "node app.js" to start the program
