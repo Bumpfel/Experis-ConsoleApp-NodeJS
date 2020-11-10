@@ -2,10 +2,32 @@ const prompt = require('prompt-sync')()
 const os = require('os')
 const webServer = require('./lib/webserver.js')
 const fs = require('fs')
+const worker = require('worker_threads');
+
+const formatBytes = bytes => {
+  let formatted = bytes
+
+  const prefix = [
+    '', 'K', 'M', 'G', 'T'
+  ]
+
+  let divisions = 0
+  while(formatted >= 1024) {
+    formatted /= 1024
+    divisions ++
+  }
+  return formatted.toFixed(1) + ' ' + prefix[divisions] + 'B'
+}
 
 const osInfo = `
 GETTING OS info...
-SYSTEM MEMORY ${(os.totalmem / Math.pow(1024, 3)).toFixed(1)} GB
+SYSTEM MEMORY ${formatBytes(os.totalmem)}
+FREE MEMORY ${formatBytes(os.freemem)}
+CPU CORES: ${os.cpus().length}
+CPU ARCH: ${os.arch}
+PLATFORM: ${os.platform}
+RELEASE: ${os.release}
+USER: ${os.userInfo().username}
 `
 
 const promptToContinue = () => {
